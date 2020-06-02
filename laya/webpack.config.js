@@ -17,6 +17,12 @@ const common_config = {
       path.resolve("./libs"),
       path.resolve("./src"),
     ],
+    alias: {
+      "@app": path.resolve(__dirname, "./src"),
+      "@test": path.resolve(__dirname, "./test"),
+      "@laya": path.resolve(__dirname, "./libs"),
+      "@library": path.resolve(__dirname, "./library"),
+    },
     extensions: [".ts", ".js", ".json"],
   },
   module: {
