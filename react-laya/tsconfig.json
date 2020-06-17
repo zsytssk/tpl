@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "experimentalDecorators": true,
+    "module": "esnext",
+    "resolveJsonModule": true,
+    "target": "es6",
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "watch": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "noEmit": true,
+    "baseUrl": "./",
+    "paths": {
+      "@app/*": ["src/*"],
+      "@test/*": ["test/*"],
+      "@laya/*": ["libs/*"],
+      "@library/*": ["library/*"]
+    }
+  },
+  "include": ["./libs", "./library", "./src", "./test"]
+}
