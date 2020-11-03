@@ -14,6 +14,7 @@ export default function (_, argv: Configuration) {
       filename: "[name].[hash].js",
     },
     mode,
+    target: mode === "production" ? ["web", "es5"] : [],
     module: {
       rules: [{ ...tsLoaderFn(mode) }, { ...fileLoader }],
     },
