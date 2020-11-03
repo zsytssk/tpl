@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "cross-env TS_NODE_PROJECT=scripts/tsconfig.json webpack serve --mode=development --config ./scripts/webpack/webpack.config.ts",
-    "build": "webpack  --mode=production --config ./scripts/webpack/webpack.config.ts"
+    "build": "cross-env TS_NODE_PROJECT=scripts/tsconfig.json webpack  --mode=production --config ./scripts/webpack/webpack.config.ts"
   },
   "keywords": [],
   "author": "",

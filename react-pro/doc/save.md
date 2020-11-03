@@ -3,7 +3,7 @@
 - 能正式上线的功能
 
   - webpack 配置
-    - cdn
+    - cdn `__webpack_public_path__`
     - 环境变量
     - babel + ts
   - react

@@ -7,7 +7,6 @@ import { devServerConfigFn } from "./devserver";
 
 export default function (_, argv: Configuration) {
   const mode = argv.mode;
-
   return {
     entry: paths.appIndexJs,
     output: {

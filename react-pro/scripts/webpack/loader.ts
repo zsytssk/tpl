@@ -9,6 +9,7 @@ export const fileLoader = {
 export const tsLoaderFn = (mode: Configuration["mode"]) => {
   const default_config = {
     test: /(\.ts|\.tsx|\.jsx|\.js)$/,
+    exclude: [/\bcore-js\b/, /\bnode_modules\b/],
     use: [
       {
         loader: "thread-loader",
