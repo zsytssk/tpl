@@ -1,23 +1,25 @@
-import { Configuration } from 'webpack';
-import { cssLoader, fileLoader, tsLoader } from './loader';
-import { resolve } from './other';
-import { plugins } from './plugin';
-import { paths } from './paths';
+import { Configuration } from "webpack";
+import { fileLoader, tsLoaderFn } from "./loader";
+import { resolve } from "./other";
+import { pluginsFn } from "./plugin";
+import { paths } from "./paths";
+import { devServerConfigFn } from "./devserver";
 
-type Env = 'Test' | 'Dev' | 'Prod';
-export const webpackConfigFn = (env: Env) => {
-	const mode: Configuration['mode'] = env === 'Prod' ? 'production' : 'development';
-	return {
-		entry: paths.appIndexJs,
-		output: {
-			path: paths.appBuild,
-			filename: '[name].[hash].js',
-		},
-		mode,
-		module: {
-			rules: [{ ...tsLoader }, { ...cssLoader }, { ...fileLoader }],
-		},
-		resolve,
-		plugins,
-	};
-};
+export default function (_, argv: Configuration) {
+  const mode = argv.mode;
+
+  return {
+    entry: paths.appIndexJs,
+    output: {
+      path: paths.appBuild,
+      filename: "[name].[hash].js",
+    },
+    mode,
+    module: {
+      rules: [{ ...tsLoaderFn(mode) }, { ...fileLoader }],
+    },
+    resolve,
+    devServer: devServerConfigFn(mode),
+    plugins: pluginsFn(mode),
+  };
+}

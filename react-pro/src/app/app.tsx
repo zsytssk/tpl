@@ -1,29 +1,7 @@
-import React from 'react';
-// import { UseReducerFc } from './hook/useReducer';
-// import { UseMemoFc } from './hook/useMemo';
-// import { UseCallback } from './hook/useCallback';
-import UseImperativeHandleParent from './hook/useImperativeHandle';
-import { UseLayoutEffect } from './hook/useLayoutEffect';
-import { UseDebugValueWrap } from './hook/useDebugValue';
-import { UseIntervalDemo, UseCusHookDemo } from './hook/cusHook';
-import { UseLessTest } from './less/scss';
-import { StateTest } from './stateTest/stateTest';
+import React from "react";
 
 const App = () => {
-	return (
-		<>
-			{/* <ReduxTest /> */}
-			{/* <UseReducerFc /> */}
-			{/* <UseMemoFc /> */}
-			{/* <UseCallback /> */}
-			{/* <UseImperativeHandleParent /> */}
-			{/* <UseLayoutEffect /> */}
-			{/* <UseDebugValueWrap /> */}
-			{/* <UseCusHookDemo /> */}
-			{/* <UseLessTest /> */}
-			<StateTest />
-		</>
-	);
+  return <div>hello world</div>;
 };
 
 export default App;
