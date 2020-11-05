@@ -9,10 +9,10 @@
   - react
     - router
     - redux
-    - ui
     - 国际化
-    - 微服务
     - 本地服务器
+    - ui
+    - 微服务
 
 - 我不会的内容
   - redux

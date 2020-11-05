@@ -1,33 +1,42 @@
-export const cssLoader = {
-	test: /(\.css|\.less)$/,
-	use: [
-		'style-loader',
-		{
-			loader: 'css-loader',
-			options: {
-				sourceMap: true,
-				modules: true,
-			},
-		},
-		{
-			loader: 'less-loader',
-			options: {
-				sourceMap: true,
-			},
-		},
-	],
-};
+import { Configuration } from "webpack";
 
 export const fileLoader = {
-	test: /\.(png|jpg|svg|gif)$/,
-	exclude: /node_modules/,
-	use: ['file-loader'],
+  test: /\.(png|jpg|svg|gif)$/,
+  exclude: /node_modules/,
+  use: ["file-loader"],
 };
 
-export const tsLoader = {
-	test: /(\.ts|\.tsx|\.jsx|\.js)$/,
-	loader: 'ts-loader',
-	options: {
-		transpileOnly: true,
-	},
+export const tsLoaderFn = (mode: Configuration["mode"]) => {
+  const default_config = {
+    test: /(\.ts|\.tsx|\.jsx|\.js)$/,
+    exclude: [/\bnode_modules\b/],
+    use: [
+      {
+        loader: "thread-loader",
+      },
+      {
+        loader: "ts-loader",
+        options: {
+          happyPackMode: true,
+        },
+      },
+    ],
+  };
+
+  if (mode === "production") {
+    default_config.use.splice(1, 0, {
+      loader: "babel-loader",
+    });
+  }
+
+  /** 类型检查 */
+  if (process.env.checkError) {
+    default_config.use = [
+      {
+        loader: "ts-loader",
+      },
+    ];
+  }
+
+  return default_config;
 };
