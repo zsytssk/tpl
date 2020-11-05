@@ -16,3 +16,18 @@
 
 - 我不会的内容
   - redux
+
+### string-replace-loader
+
+```ts
+{
+    test: /\.route\.(j|t)s(x?)$/,
+    loader: 'string-replace-loader',
+    options: {
+        search: 'lazyImport((.*)),',
+        replace: (match, p1, offset, string) =>
+            dev ? `require${p1}.default,` : `React.lazy(() => import${p1}),`,
+        flags: 'g',
+    },
+}
+```

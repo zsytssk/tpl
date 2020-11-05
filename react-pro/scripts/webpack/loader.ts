@@ -28,5 +28,15 @@ export const tsLoaderFn = (mode: Configuration["mode"]) => {
       loader: "babel-loader",
     });
   }
+
+  /** 类型检查 */
+  if (process.env.checkError) {
+    default_config.use = [
+      {
+        loader: "ts-loader",
+      },
+    ];
+  }
+
   return default_config;
 };

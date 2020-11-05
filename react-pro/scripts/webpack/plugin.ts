@@ -1,6 +1,7 @@
 import { Configuration } from "webpack";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import { CleanWebpackPlugin } from "clean-webpack-plugin";
+import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
 
 const htmlWebpackPlugin = new HtmlWebpackPlugin({
   favicon: "./public/favicon.ico",
@@ -8,5 +9,11 @@ const htmlWebpackPlugin = new HtmlWebpackPlugin({
 });
 
 export const pluginsFn = (mode: Configuration["mode"]) => {
-  return [htmlWebpackPlugin, new CleanWebpackPlugin()];
+  let plugins = [htmlWebpackPlugin, new CleanWebpackPlugin()];
+
+  if (process.env.analyze) {
+    plugins = [...plugins, new BundleAnalyzerPlugin()];
+  }
+
+  return plugins;
 };
