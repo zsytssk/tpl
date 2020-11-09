@@ -1,27 +1,29 @@
-import { Dispatch } from "redux";
 import { handleActions, Action } from "redux-actions";
 
 enum ActionTypes {
-  UPDATE = "UPDATE",
+  SET_LANG = "SET_LANG",
 }
 
 const initialState = {
-  stateId: 0,
+  lang: 0,
 };
 
-type State = typeof initialState;
+export type AppState = typeof initialState;
 
 const reducer: {
-  [key: string]: (state: State, action: any) => any;
+  [key: string]: (state: AppState, action: any) => any;
 } = {};
 
-reducer[ActionTypes.UPDATE] = (state: State) => {
-  return { ...state, stateId: state.stateId + 1 };
+reducer[ActionTypes.SET_LANG] = (
+  state: AppState,
+  action: Action<{ matchId: number; count: number }>
+) => {
+  return { ...state, lang: action.lang };
 };
 
 export const actions = {
-  update() {
-    return { type: ActionTypes.UPDATE };
+  setLang: (lang: string) => {
+    return { type: ActionTypes.SET_LANG, lang };
   },
 };
 
