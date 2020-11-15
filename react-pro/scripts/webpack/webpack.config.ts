@@ -12,6 +12,7 @@ export default function (_, argv: Configuration) {
     output: {
       path: paths.appBuild,
       filename: "[name].[hash].js",
+      publicPath: "/",
     },
     mode,
     target: mode === "production" ? ["web", "es5"] : ["web"],

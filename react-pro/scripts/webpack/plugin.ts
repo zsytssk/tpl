@@ -6,6 +6,7 @@ import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
 const htmlWebpackPlugin = new HtmlWebpackPlugin({
   favicon: "./public/favicon.ico",
   template: "./public/index.html",
+  inject: true,
 });
 
 export const pluginsFn = (mode: Configuration["mode"]) => {
