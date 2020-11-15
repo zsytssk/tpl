@@ -6,6 +6,36 @@ export const fileLoader = {
   use: ["file-loader"],
 };
 
+export const cssLoaderFn = (mode: Configuration["mode"]) => {
+  return {
+    test: /(\.css|\.less)$/,
+    use: [
+      "style-loader",
+      {
+        loader: "css-loader",
+        options: {
+          sourceMap: mode === "development",
+          modules: true,
+        },
+      },
+      {
+        loader: "postcss-loader",
+        options: {
+          postcssOptions: {
+            plugins: [require("autoprefixer")()],
+          },
+        },
+      },
+      {
+        loader: "less-loader",
+        options: {
+          sourceMap: mode === "development",
+        },
+      },
+    ],
+  };
+};
+
 export const tsLoaderFn = (mode: Configuration["mode"]) => {
   const default_config = {
     test: /(\.ts|\.tsx|\.jsx|\.js)$/,

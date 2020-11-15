@@ -1,3 +1,4 @@
+import { TypeLanguageName } from "@app/constants/i18n";
 import { handleActions, Action } from "redux-actions";
 
 enum ActionTypes {
@@ -5,7 +6,7 @@ enum ActionTypes {
 }
 
 const initialState = {
-  lang: 0,
+  lang: null as TypeLanguageName,
 };
 
 export type AppState = typeof initialState;

@@ -1,5 +1,5 @@
 import { Configuration } from "webpack";
-import { fileLoader, tsLoaderFn } from "./loader";
+import { fileLoader, tsLoaderFn, cssLoaderFn } from "./loader";
 import { resolve } from "./other";
 import { pluginsFn } from "./plugin";
 import { paths } from "./paths";
@@ -16,7 +16,11 @@ export default function (_, argv: Configuration) {
     mode,
     target: mode === "production" ? ["web", "es5"] : ["web"],
     module: {
-      rules: [{ ...tsLoaderFn(mode) }, { ...fileLoader }],
+      rules: [
+        { ...tsLoaderFn(mode) },
+        { ...cssLoaderFn(mode) },
+        { ...fileLoader },
+      ],
     },
     resolve,
     devServer: devServerConfigFn(mode),
