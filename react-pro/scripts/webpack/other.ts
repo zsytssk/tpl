@@ -1,3 +1,4 @@
+import { Configuration } from "webpack";
 import { paths } from "./paths";
 
 export const resolve = {
@@ -6,3 +7,10 @@ export const resolve = {
     "@app": paths.appSrc,
   },
 };
+
+export function genDevtool(mode: Configuration["mode"]) {
+  if (mode === "development") {
+    return "eval-source-map";
+  }
+  return false;
+}

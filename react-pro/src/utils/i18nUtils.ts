@@ -9,7 +9,7 @@ export function getLang() {
   return lang;
 }
 
-export function formatLang(_lang: string) {
+export function formatLang(_lang = "") {
   let result: TypeLanguageName;
   if (_lang === "zh" || (_lang.includes("zh") && _lang.includes("cn"))) {
     // 简体中文
@@ -30,5 +30,5 @@ export function formatLang(_lang: string) {
     // 如果没有匹配到支持的语言，统一按照英文展示
     result = "en";
   }
-  return [result, _lang !== result];
+  return [result, _lang !== result] as [TypeLanguageName, boolean];
 }

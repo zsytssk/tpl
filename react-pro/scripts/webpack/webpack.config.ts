@@ -1,6 +1,6 @@
 import { Configuration } from "webpack";
 import { fileLoader, tsLoaderFn, cssLoaderFn } from "./loader";
-import { resolve } from "./other";
+import { genDevtool, resolve } from "./other";
 import { pluginsFn } from "./plugin";
 import { paths } from "./paths";
 import { devServerConfigFn } from "./devserver";
@@ -15,6 +15,7 @@ export default function (_, argv: Configuration) {
       publicPath: "/",
     },
     mode,
+    devtool: genDevtool(mode),
     target: mode === "production" ? ["web", "es5"] : ["web"],
     module: {
       rules: [
