@@ -11,7 +11,7 @@ export default function (_, argv: Configuration) {
     entry: paths.appIndexJs,
     output: {
       path: paths.appBuild,
-      filename: "[name].[hash].js",
+      filename: "[name].[fullhash].js",
       publicPath: "/",
     },
     mode,
