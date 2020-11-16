@@ -1,7 +1,9 @@
-import React, { createContext } from "react";
+import React, { createContext, useCallback } from "react";
 import { useSelector } from "react-redux";
 import i18n from "@app/i18n";
 import { RootState } from "@app/redux/store";
+import { TypeLanguageName } from "@app/constants/i18n";
+import template from "@app/utils/template";
 
 export const LocaleMap = {
   "zh-Hans": { value: "zh_CN", oldStandard: "zh-CN" },
@@ -25,3 +27,25 @@ export const LanguageProvider = (props: any) => {
     </LanguageContext.Provider>
   );
 };
+
+export const useLang = () =>
+  useSelector(
+    (state) => (state as RootState).app.lang,
+    (before, after) => before === after
+  );
+
+export function useLangMap() {
+  const lang = useLang();
+  return useCallback(
+    (namespace, data?: any) => {
+      const context = i18n[lang];
+      if (!namespace) return null;
+      const info = namespace
+        .split(".")
+        .reduce((s, n) => (s ? s[n] : undefined), context);
+      if (!info) console.warn(`i18n ${namespace} undefined`);
+      return info ? template(info, data) : "";
+    },
+    [lang]
+  );
+}

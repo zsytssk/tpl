@@ -23,8 +23,7 @@ export default function Root(props: any) {
     const [new_lang, change] = formatLang(urlLang);
     if (change) {
       const { pathname, search, hash } = location;
-      let new_path = `${new_lang}${pathname}`;
-      history.replace(`${new_path}/${pathname}${search}${hash}`);
+      history.replace(`${new_lang}${pathname}${search}${hash}`);
     }
     dispatch(actions.setLang(new_lang));
   }, []);
