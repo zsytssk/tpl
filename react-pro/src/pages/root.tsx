@@ -32,11 +32,11 @@ export default function Root(props: any) {
   useEffect(() => {
     setLang(lang);
     const { pathname, search, hash } = location;
-    if (ref.current) {
-      const new_path = pathname.replace("lang");
-      history.replace(`${lang}${pathname}${search}${hash}`);
+    if (refOldLang.current && refOldLang.current !== lang) {
+      const new_path = pathname.replace(refOldLang.current, lang);
+      history.replace(`${new_path}${search}${hash}`);
     }
-    ref.current = true;
+    refOldLang.current = lang;
   }, [lang]);
 
   return (
