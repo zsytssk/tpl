@@ -1,0 +1,29 @@
+@import '~@app/components/Common/common.less';
+
+.listScope {
+    :global {
+        .am-list-body {
+            background: none;
+            &::after {
+              visibility: hidden;
+              display: none !important;
+          }
+        }
+
+        .page-list-loading {
+            text-align: center;
+            padding-top: 100px;
+            @loading();
+        }
+        .page-list-footer {
+            text-align: center;
+        }
+        .page-list-footer-desc {
+            width: 100%;
+            font-size: 14px;
+            color: darkgrey;
+            text-align: center;
+            opacity: 0.5;
+        }
+    }
+}
