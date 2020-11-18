@@ -29,9 +29,6 @@ export default function Home() {
 
             <div onClick={() => setVisible(true)}>show modal</div>
             <TestModal visible={visible} onClose={() => setVisible(false)} />
-            <TestModal visible={visible} onClose={() => setVisible(false)} />
-            <TestModal visible={visible} onClose={() => setVisible(false)} />
-            <TestModal visible={visible} onClose={() => setVisible(false)} />
         </div>
     );
 }
