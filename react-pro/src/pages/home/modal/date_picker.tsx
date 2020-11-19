@@ -5,7 +5,7 @@ import styles from './date_picker.less';
 
 import DayPicker from 'react-day-picker';
 
-import '!!style-loader!css-loader!react-day-picker/lib/style.css';
+import '!style-loader!css-loader!react-day-picker/lib/style.css';
 
 export function TestDatePicker({
     visible,
