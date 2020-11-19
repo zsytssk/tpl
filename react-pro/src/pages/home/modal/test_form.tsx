@@ -1,9 +1,9 @@
 import React from 'react';
 import { Modal } from '@app/libs/BitUI/Modal/Modal';
 import { useForm } from 'react-hook-form';
-import styles from './test_modal.less';
+import styles from './test_form.less';
 
-export function TestModal({
+export function TestForm({
     visible,
     onClose,
 }: {
