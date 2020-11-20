@@ -1,7 +1,12 @@
 ## 2020-11-05 22:00:20
 
--   datePicker
+-   react-date-picker
+
     -   国际化 + dateRange
+
+-   @ques 国际化没用 可能是 webpack 的配置有问题
+    -   https://codesandbox.io/s/date-picker-4ppwh
+    -   线上有用
 
 ### end
 
