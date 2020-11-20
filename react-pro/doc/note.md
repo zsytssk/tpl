@@ -1,12 +1,15 @@
 ## 2020-11-05 22:00:20
 
--   react-date-picker
+-   (react-datepicker)[https://github.com/Hacker0x01/react-datepicker/]
 
     -   国际化 + dateRange
 
 -   @ques 国际化没用 可能是 webpack 的配置有问题
-    -   https://codesandbox.io/s/date-picker-4ppwh
-    -   线上有用
+    -   https://codesandbox.io/s/date-picker-4ppwh -> 线上有用
+    -   为什么我的样式都需要而外引入 js
+    -   demo 里面直接就可以显示...
+    -   因为库就不一样
+    -
 
 ### end
 

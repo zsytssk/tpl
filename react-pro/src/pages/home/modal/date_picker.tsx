@@ -18,7 +18,7 @@ export function TestDatePicker({
 
     return (
         <Modal visible={true} className={styles.testModal}>
-            <DatePicker locale="ja" onChange={onChange} value={value} />
+            <DatePicker locale="zh" onChange={onChange} value={value} />
         </Modal>
     );
 }

@@ -54,7 +54,7 @@ export const cssLoaderFn = (mode: Configuration['mode']) => {
 export const tsLoaderFn = (mode: Configuration['mode']) => {
     const default_config = {
         test: /(\.ts|\.tsx|\.jsx|\.js)$/,
-        exclude: [/\bnode_modules\b/],
+        // exclude: [/\bnode_modules\b/],
         use: [
             {
                 loader: 'thread-loader',
