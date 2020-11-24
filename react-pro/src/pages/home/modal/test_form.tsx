@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Modal } from '@app/libs/BitUI/Modal/Modal';
 import { useForm } from 'react-hook-form';
 import styles from './test_form.less';
+import { log } from '@app/utils/logger';
 
 export function TestForm({
     visible,
@@ -10,10 +11,12 @@ export function TestForm({
     visible: boolean;
     onClose?: () => void;
 }) {
+    const [state, setState] = useState(false);
     const { handleSubmit, register, errors } = useForm();
     const onSubmit = (data) => {
-        console.log(data);
+        log(data);
     };
+
     return (
         <Modal visible={true} className={styles.testModal}>
             <form onSubmit={handleSubmit(onSubmit)}>

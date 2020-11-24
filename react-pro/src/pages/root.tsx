@@ -27,7 +27,7 @@ export default function Root(props: any) {
             history.replace(`${new_lang}${pathname}${search}${hash}`);
         }
         dispatch(actions.setLang(new_lang));
-    }, []);
+    }, [history, location, dispatch, urlLang]);
 
     useEffect(() => {
         setLang(lang);
@@ -37,7 +37,7 @@ export default function Root(props: any) {
             history.replace(`${new_path}${search}${hash}`);
         }
         refOldLang.current = lang;
-    }, [lang]);
+    }, [lang, history, location]);
 
     return (
         <>

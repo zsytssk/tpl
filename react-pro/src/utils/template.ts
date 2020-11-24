@@ -3,7 +3,7 @@
 const nargs = /\{([0-9a-zA-Z_]+)\}/g;
 
 /* eslint-disable prefer-rest-params */
-export default function template(str = '') {
+export default function template(str = '', data) {
     let args: any;
 
     if (arguments.length === 2 && typeof arguments[1] === 'object') {
