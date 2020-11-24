@@ -22,6 +22,7 @@ export const lessLoaderFn = (mode: Configuration['mode']) => {
                 loader: 'postcss-loader',
                 options: {
                     postcssOptions: {
+                        /* eslint-disable-next-line */
                         plugins: [require('autoprefixer')()],
                     },
                 },

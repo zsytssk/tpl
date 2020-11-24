@@ -7,7 +7,9 @@ type LiteListViewProps<T> = {
     pageSize: number;
     footerRender?: () => JSX.Element | null;
     itemRender: (item: any, index: number) => JSX.Element;
-    request: (pageInfo: LiteListViewPageParams) => Promise<LiteListViewRequestRepType<T>> | undefined;
+    request: (
+        pageInfo: LiteListViewPageParams,
+    ) => Promise<LiteListViewRequestRepType<T>> | undefined;
     deps?: any[];
 };
 export interface LiteListViewRequestRepType<T> {
@@ -25,7 +27,10 @@ export function LiteListView<T extends any>({
     itemRender,
     request,
 }: LiteListViewProps<T>) {
-    const [pageParams, setPageParams] = useState({ pageNum: -1, pageSize } as LiteListViewPageParams);
+    const [pageParams, setPageParams] = useState({
+        pageNum: -1,
+        pageSize,
+    } as LiteListViewPageParams);
     const [loading, setLoading] = useState(false);
     const [end, setEnd] = useState(false);
     const [data, setData] = useState<T[]>([]);
@@ -63,7 +68,12 @@ export function LiteListView<T extends any>({
             loading={loading}
             end={end}
             dataSource={data}
-            onEndReached={() => setPageParams({ ...pageParams, pageNum: pageParams.pageNum + 1 })}
+            onEndReached={() =>
+                setPageParams({
+                    ...pageParams,
+                    pageNum: pageParams.pageNum + 1,
+                })
+            }
             footerRender={footerRender || defaultFootRender}
             itemRender={itemRender}
         />

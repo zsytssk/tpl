@@ -34,7 +34,10 @@ export function Dropdown(props: DropdownProps) {
 
     return (
         <>
-            {ReactDOM.createPortal(<DropdownCon domRef={ref} {...otherProps} visible={visible} />, wrap)}
+            {ReactDOM.createPortal(
+                <DropdownCon domRef={ref} {...otherProps} visible={visible} />,
+                wrap,
+            )}
             {child}
         </>
     );
@@ -48,7 +51,11 @@ type Style = {
     left: number;
     top: number;
 };
-function DropdownCon(props: DropdownConProps & { domRef: React.MutableRefObject<HTMLElement | undefined> }) {
+function DropdownCon(
+    props: DropdownConProps & {
+        domRef: React.MutableRefObject<HTMLElement | undefined>;
+    },
+) {
     const { domRef, visible, overlay } = props;
     const [style, setStyle] = useState({} as Style);
     const ref = useRef<HTMLDivElement>(null);
@@ -67,7 +74,11 @@ function DropdownCon(props: DropdownConProps & { domRef: React.MutableRefObject<
 
         setStyle({
             left: bounds.left + (bounds.width - localBounds.width) / 2,
-            top: bounds.top + bounds.height + 5 + document.documentElement.scrollTop,
+            top:
+                bounds.top +
+                bounds.height +
+                5 +
+                document.documentElement.scrollTop,
         });
     }, [visible]);
 

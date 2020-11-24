@@ -53,7 +53,10 @@ export function Tooltip(props: TooltipProps) {
 
     return (
         <>
-            {ReactDOM.createPortal(<TooltipCon visible={visible} {...otherProps} domRef={ref} />, wrap)}
+            {ReactDOM.createPortal(
+                <TooltipCon visible={visible} {...otherProps} domRef={ref} />,
+                wrap,
+            )}
             {child}
         </>
     );
@@ -69,7 +72,11 @@ type Style = {
     left: number;
     top: number;
 };
-function TooltipCon(props: TooltipConProps & { domRef: React.MutableRefObject<HTMLElement | undefined> }) {
+function TooltipCon(
+    props: TooltipConProps & {
+        domRef: React.MutableRefObject<HTMLElement | undefined>;
+    },
+) {
     const { title, domRef, visible, className } = props;
     let { position } = props;
     const [style, setStyle] = useState({} as Style);
@@ -88,19 +95,33 @@ function TooltipCon(props: TooltipConProps & { domRef: React.MutableRefObject<HT
         const localBounds = localDom.getBoundingClientRect();
         const { scrollTop, scrollLeft } = document.documentElement;
 
-        let left: number = 0;
-        let top: number = 0;
+        let left = 0;
+        let top = 0;
         if (position === 'right') {
             left = scrollLeft + bounds.left + bounds.width + arrow_size;
-            top = scrollTop + bounds.top + bounds.height / 2 - localBounds.height / 2;
+            top =
+                scrollTop +
+                bounds.top +
+                bounds.height / 2 -
+                localBounds.height / 2;
         } else if (position === 'top') {
-            left = scrollLeft + bounds.left + (bounds.width - localBounds.width) / 2;
+            left =
+                scrollLeft +
+                bounds.left +
+                (bounds.width - localBounds.width) / 2;
             top = scrollTop + bounds.top - localBounds.height - arrow_size;
         } else if (position === 'left') {
             left = scrollLeft + bounds.left - localBounds.width - arrow_size;
-            top = scrollTop + bounds.top + bounds.height / 2 - localBounds.height / 2;
+            top =
+                scrollTop +
+                bounds.top +
+                bounds.height / 2 -
+                localBounds.height / 2;
         } else if (position === 'bottom') {
-            left = scrollLeft + bounds.left + (bounds.width - localBounds.width) / 2;
+            left =
+                scrollLeft +
+                bounds.left +
+                (bounds.width - localBounds.width) / 2;
             top = scrollTop + bounds.top + bounds.height + arrow_size;
         }
 
@@ -115,7 +136,11 @@ function TooltipCon(props: TooltipConProps & { domRef: React.MutableRefObject<HT
     }
 
     return (
-        <div className={classnames('bit-tooltip', position, className)} ref={tipRef} style={{ ...style }}>
+        <div
+            className={classnames('bit-tooltip', position, className)}
+            ref={tipRef}
+            style={{ ...style }}
+        >
             <div className="bit-tooltip-content">
                 <div className="bit-tooltip-arrow"></div>
                 <div className="bit-tooltip-inner">

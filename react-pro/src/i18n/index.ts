@@ -1,12 +1,12 @@
 export default {
-  en: {
-    test: {
-      test: "Test",
+    en: {
+        test: {
+            test: 'Test',
+        },
     },
-  },
-  "zh-Hans": {
-    test: {
-      test: "测试",
+    'zh-Hans': {
+        test: {
+            test: '测试',
+        },
     },
-  },
 };

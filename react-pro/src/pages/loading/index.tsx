@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import { log } from '@app/utils/logger';
+import { useEffect } from 'react';
 
 export default function Loading() {
-  useEffect(() => {
-    console.log(`loading`);
-  }, []);
+    useEffect(() => {
+        log(`loading`);
+    }, []);
 
-  return <div>loading...</div>;
+    return <div>loading...</div>;
 }

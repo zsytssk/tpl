@@ -46,7 +46,7 @@ type DialogProps = {
     visible: boolean;
 };
 export function Dialog(props: ModalProps) {
-    let { children, className } = props;
+    const { children, className } = props;
 
     return (
         <div className={`bit-modal-root ${className ? className : ''}`}>

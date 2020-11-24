@@ -18,7 +18,14 @@ type Props = {
 };
 
 export function Header(props: Props) {
-    const { title, onPrev, backNode, children, overlayClassName, overlayStyle } = props;
+    const {
+        title,
+        onPrev,
+        backNode,
+        children,
+        overlayClassName,
+        overlayStyle,
+    } = props;
     const history = useHistory();
     const onClick = useCallback(() => {
         if (onPrev) {
@@ -33,7 +40,11 @@ export function Header(props: Props) {
     return (
         <div className={classNames(styles.header)}>
             <div className={styles.safeArea}></div>
-            <div ref={overlayRef} style={overlayStyle} className={classNames('bit-m-header', overlayClassName)}>
+            <div
+                ref={overlayRef}
+                style={overlayStyle}
+                className={classNames('bit-m-header', overlayClassName)}
+            >
                 {backNode === false ? null : React.isValidElement(backNode) ? (
                     backNode
                 ) : (

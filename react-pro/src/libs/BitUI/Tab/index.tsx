@@ -7,7 +7,8 @@ type TabsProps = {
     defaultIndex?: number;
 };
 export function Tabs(props: TabsProps) {
-    let { children, onSelected, defaultIndex } = props;
+    const { onSelected, defaultIndex } = props;
+    let { children } = props;
     const [curIndex, setCurIndex] = useState(defaultIndex || 0);
     if (!Array.isArray(children)) {
         children = [children];
@@ -60,5 +61,3 @@ export function Tab(props: TabProps) {
     }
     return <div>{children}</div>;
 }
-
-export function TabPanel() {}

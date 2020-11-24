@@ -18,19 +18,30 @@ export type Props = {
     footerRender?: () => JSX.Element | null;
 };
 export function ListView(props: Props) {
-    const { itemRender, footerRender, dataSource, onEndReached, loading, end } = props;
+    const {
+        itemRender,
+        footerRender,
+        dataSource,
+        onEndReached,
+        loading,
+        end,
+    } = props;
     let { onEndReachedThreshold } = props;
     const lang = useSelector((state) => (state as any).app.lang);
     const langInfo = i18n[lang].common;
 
-    onEndReachedThreshold = onEndReachedThreshold === undefined ? 10 : onEndReachedThreshold;
+    onEndReachedThreshold =
+        onEndReachedThreshold === undefined ? 10 : onEndReachedThreshold;
     useEffect(() => {
         const fn = () => {
             if (end || loading) {
                 return;
             }
 
-            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - (onEndReachedThreshold as number)) {
+            if (
+                window.innerHeight + window.scrollY >=
+                document.body.offsetHeight - (onEndReachedThreshold as number)
+            ) {
                 onEndReached?.();
             }
         };
@@ -41,10 +52,19 @@ export function ListView(props: Props) {
 
     return (
         <>
-            <div className={classNames('bit-list', { 'bit-list-view-empty': isEmpty(dataSource) })}>
+            <div
+                className={classNames('bit-list', {
+                    'bit-list-view-empty': isEmpty(dataSource),
+                })}
+            >
                 {!isEmpty(dataSource)
                     ? dataSource.map((item, index) => itemRender(item, index))
-                    : !loading && <Empty tip={langInfo.noresult} className="bit-list-empty" />}
+                    : !loading && (
+                          <Empty
+                              tip={langInfo.noresult}
+                              className="bit-list-empty"
+                          />
+                      )}
                 {footerRender?.()}
             </div>
         </>

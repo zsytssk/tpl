@@ -12,7 +12,9 @@ export interface CheckboxGroupContext {
     cancelValue: (value: any) => void;
 }
 
-export const GroupContext = React.createContext<CheckboxGroupContext | null>(null);
+export const GroupContext = React.createContext<CheckboxGroupContext | null>(
+    null,
+);
 type CheckboxGroupProps<T = any> = {
     defaultValue?: T[];
     value?: T[];
@@ -67,5 +69,9 @@ export function CheckboxGroup(props: CheckboxGroupProps) {
         cancelValue,
     };
 
-    return <GroupContext.Provider value={context}>{children}</GroupContext.Provider>;
+    return (
+        <GroupContext.Provider value={context}>
+            {children}
+        </GroupContext.Provider>
+    );
 }

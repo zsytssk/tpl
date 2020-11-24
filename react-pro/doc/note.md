@@ -1,3 +1,13 @@
+## 2020-11-24 11:05:54
+
+-   ts-lint -> es-lint
+
+    -   https://www.robertcooper.me/using-eslint-and-prettier-in-a-typescript-project
+
+-   react 17
+
+-   @todo turn off Missing return type on function
+
 ## 2020-11-05 22:00:20
 
 -   (react-datepicker)[https://github.com/Hacker0x01/react-datepicker/]

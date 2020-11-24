@@ -1,4 +1,4 @@
 let i = 0;
 export function genId() {
-  return i++ + "";
+    return i++ + '';
 }

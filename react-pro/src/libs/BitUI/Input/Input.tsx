@@ -6,7 +6,7 @@ import eyeCloseSVG from '@app/assets/images/icons/eyeClose.svg';
 
 import './Input.less';
 
-type Props = React.InputHTMLAttributes<HTMLInputElement> & {};
+type Props = React.InputHTMLAttributes<HTMLInputElement>;
 
 export function Input(props: Props) {
     const { type, ...otherProps } = props;

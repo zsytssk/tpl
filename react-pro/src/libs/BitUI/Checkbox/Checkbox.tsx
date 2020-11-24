@@ -19,11 +19,22 @@ const defaultProps = {
 };
 
 export function Checkbox(props: Props) {
-    const { children, labelPos, onChange, checked, indeterminate, defaultChecked, value, disabled } = {
+    const {
+        children,
+        labelPos,
+        onChange,
+        checked,
+        indeterminate,
+        defaultChecked,
+        value,
+        disabled,
+    } = {
         ...defaultProps,
         ...props,
     };
-    const [localChecked, setLocalChecked] = useState<boolean>(Boolean(defaultChecked));
+    const [localChecked, setLocalChecked] = useState<boolean>(
+        Boolean(defaultChecked),
+    );
     const context = useContext(GroupContext);
 
     const onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,7 +64,11 @@ export function Checkbox(props: Props) {
 
     return (
         <label className="bit-checkbox-wrapper">
-            {labelPos === 'left' && <span className="bit-checkbox-label bit-checkbox-left">{children}</span>}
+            {labelPos === 'left' && (
+                <span className="bit-checkbox-label bit-checkbox-left">
+                    {children}
+                </span>
+            )}
             <span
                 className={classnames({
                     'bit-checkbox': true,
@@ -70,7 +85,11 @@ export function Checkbox(props: Props) {
                 />
                 <span className="bit-checkbox-inner"></span>
             </span>
-            {labelPos === 'right' && <span className="bit-checkbox-label bit-checkbox-right">{children}</span>}
+            {labelPos === 'right' && (
+                <span className="bit-checkbox-label bit-checkbox-right">
+                    {children}
+                </span>
+            )}
         </label>
     );
 }
