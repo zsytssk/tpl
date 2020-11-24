@@ -1,6 +1,12 @@
 import { useState } from 'react';
 import { Modal } from '@app/libs/BitUI/Modal/Modal';
 import styles from './date_picker.less';
+import zhCn from 'date-fns/locale/zh-CN';
+
+import DatePicker, { registerLocale } from 'react-datepicker';
+
+import '!style-loader!css-loader!react-datepicker/dist/react-datepicker.css';
+registerLocale('zh-CN', zhCn);
 
 export function TestDatePicker({
     visible,
@@ -9,11 +15,14 @@ export function TestDatePicker({
     visible: boolean;
     onClose?: () => void;
 }) {
-    const [value, onChange] = useState(new Date());
-
+    const [startDate, setStartDate] = useState(new Date());
     return (
         <Modal visible={true} className={styles.testModal}>
-            test
+            <DatePicker
+                selected={startDate}
+                onChange={(date) => setStartDate(date)}
+                locale="zh-CN"
+            />
         </Modal>
     );
 }
