@@ -6,7 +6,6 @@
     "scripts": {
         "start": "cross-env TS_NODE_PROJECT=scripts/tsconfig.json webpack serve --mode=development --config ./scripts/webpack/webpack.config.ts",
         "analyze": "cross-env analyze=true TS_NODE_PROJECT=scripts/tsconfig.json webpack  --mode=production --config ./scripts/webpack/webpack.config.ts",
-        "checkError": "cross-env checkError=true TS_NODE_PROJECT=scripts/tsconfig.json webpack  --mode=production --config ./scripts/webpack/webpack.config.ts",
         "build": "cross-env TS_NODE_PROJECT=scripts/tsconfig.json webpack  --mode=production --config ./scripts/webpack/webpack.config.ts",
         "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix"
     },
