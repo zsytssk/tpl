@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Modal } from '@app/libs/BitUI/Modal/Modal';
 import styles from './date_picker.less';
 

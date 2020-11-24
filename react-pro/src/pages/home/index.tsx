@@ -1,12 +1,10 @@
 import { actions } from '@app/redux/modules/app';
-import { RootState } from '@app/redux/store';
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useLang, useLangMap } from '../shared/i18n';
 import { TestDatePicker } from './modal/date_picker';
 import { TestForm } from './modal/test_form';
-
 import style from './style.less';
 
 export default function Home() {
