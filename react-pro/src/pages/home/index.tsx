@@ -13,7 +13,6 @@ export default function Home() {
     const lang = useLang();
     const dispatch = useDispatch();
     const langMap = useLangMap();
-
     return (
         <div className={style.div}>
             <button
