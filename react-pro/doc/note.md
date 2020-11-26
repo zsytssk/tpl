@@ -1,5 +1,40 @@
 ## 2020-11-25 09:36:08
 
+-   @ques 能不能支持 父亲的 传进来的 class advance
+
+    -   @material-ui/styles "combine" props classes
+    -   https://material-ui.com/zh/styles/advanced/#makestyles
+
+-   @test preFix 有没有用
+
+    -   什么属性需要 autoPrefix
+
+-   @todo jss
+    -   @todo theme
+    -   plugin:> https://cssinjs.org/plugins/?v=v10.5.0
+        -   https://github.com/cssinjs/jss/tree/master/docs
+
+@material-ui/styles
+px to rem
+
+autoprefix:> jss-plugin-vendor-prefixer | inline-style-prefixer
+
+```ts
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
+const fontSize = 14; // px
+// Tell Material-UI what's the font-size on the html element.
+// 16px is the default font-size used by browsers.
+const htmlFontSize = 16;
+const coef = fontSize / 14;
+
+const theme = createMuiTheme({
+    typography: {
+        pxToRem: (size) => `${(size / htmlFontSize) * coef}rem`,
+    },
+});
+```
+
 react-pro jss
 
 ## 2020-11-05 22:00:20

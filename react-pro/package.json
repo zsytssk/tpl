@@ -13,6 +13,7 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "@material-ui/styles": "^4.11.1",
         "autoprefixer": "^10.0.2",
         "classnames": "^2.2.6",
         "less": "^3.11.3",
