@@ -1,4 +1,7 @@
-import { ThemeProvider as MuiThemeProvider } from '@material-ui/styles';
+import {
+    ThemeProvider as MuiThemeProvider,
+    makeStyles,
+} from '@material-ui/styles';
 import { useEffect, useState } from 'react';
 
 export type Theme = {
@@ -6,8 +9,21 @@ export type Theme = {
     setTheme: (name: string) => void;
 };
 
+const useStyle = makeStyles({
+    '@global': {
+        body: {
+            color: 'green',
+        },
+        a: {
+            textDecoration: 'underline',
+        },
+    },
+});
+
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
     const [theme, setTheme] = useState('dark');
+
+    useStyle();
 
     useEffect(() => {
         const localTheme = localStorage.getItem('theme');
