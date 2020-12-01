@@ -8,13 +8,16 @@ import { Provider } from 'react-redux';
 import configureStore from '@app/redux/store';
 import { routes } from '@app/routes/app.routes';
 import Loading from './pages/loading';
+import { ThemeProvider } from './pages/shared/theme';
 
 ReactDOM.render(
     <Provider store={configureStore()}>
         <React.StrictMode>
             <React.Suspense fallback={<Loading />}>
                 <BrowserRouter>
-                    <Switch>{renderRoutes(routes)}</Switch>
+                    <ThemeProvider>
+                        <Switch>{renderRoutes(routes)}</Switch>
+                    </ThemeProvider>
                 </BrowserRouter>
             </React.Suspense>
         </React.StrictMode>

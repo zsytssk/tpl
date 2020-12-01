@@ -6,8 +6,11 @@ import { useLang, useLangMap } from '../shared/i18n';
 import { TestDatePicker } from './modal/date_picker';
 import { TestForm } from './modal/test_form';
 import { useStyles1, useStyles2 } from './style';
+import { useTheme } from '@material-ui/styles';
+import { Theme } from '../shared/theme';
 
 export default function Home() {
+    const { name, setTheme } = useTheme<Theme>();
     const classes1 = useStyles1();
     const classes2 = useStyles2({ classes: classes1 });
     const [visible, setVisible] = useState(false);
@@ -16,6 +19,7 @@ export default function Home() {
     const dispatch = useDispatch();
     const langMap = useLangMap();
 
+    console.log(`test:>`, name);
     return (
         <div className={classes2.div}>
             <button
@@ -28,6 +32,8 @@ export default function Home() {
             {langMap('test.test') + '111111'}
             <br />
             <Link to={`/${lang}/loading`}>loading</Link>
+            <button onClick={() => setTheme('light')}>theme:light</button>
+            <button onClick={() => setTheme('dark')}>theme:dark</button>
 
             <div onClick={() => setVisible(true)}>test form</div>
             <TestForm visible={visible} onClose={() => setVisible(false)} />
