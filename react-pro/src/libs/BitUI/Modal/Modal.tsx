@@ -27,7 +27,7 @@ export function Modal(props: ModalProps) {
         return () => {
             wrap.removeChild(modal);
         };
-    }, [visible]);
+    }, [modal, visible]);
 
     return ReactDOM.createPortal(<Dialog {...props} />, modal);
 }
