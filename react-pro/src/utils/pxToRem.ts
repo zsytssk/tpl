@@ -3,7 +3,7 @@ type Options = {
     min: number;
 };
 const defaultOptions = { unit: 75, min: 3 };
-const regEx = /(\d+)px/;
+const regEx = /(\d+)px/g;
 /**
  * Replace all css rules with rem and em to be px
  * Intended to be used when you have no control over the document
@@ -34,8 +34,8 @@ export function jssPxToRem(options = {} as Options) {
                 if (min && item_val <= min) {
                     continue;
                 }
-                const new_val = item_val / unit;
-                val = val.replace(item, parseFloat(new_val.toFixed(4)) + 'rem');
+                const new_val = parseFloat((item_val / unit).toFixed(4));
+                val = val.replace(item, new_val + 'rem');
             }
             style[key] = val;
         }

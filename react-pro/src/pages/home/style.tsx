@@ -5,6 +5,7 @@ export const useStyles1 = makeStyles<{ name: string }>((theme) => {
         div: {
             backgroundColor: theme.name === 'dark' ? '#000' : 'blue',
             fontSize: '16px !important',
+            margin: '10px 10px 20px 20px',
         },
     };
 });
