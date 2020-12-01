@@ -9,7 +9,6 @@ import configureStore from '@app/redux/store';
 import { routes } from '@app/routes/app.routes';
 import Loading from './pages/loading';
 import { ThemeProvider } from './pages/shared/theme';
-import { JSSPluginProvider } from './pages/shared/jssPlugin';
 
 (window as any).GIT_VERSION = process.env.GIT_VERSION;
 (window as any).GIT_AUTHOR_DATE = process.env.GIT_AUTHOR_DATE;
