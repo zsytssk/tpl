@@ -17,7 +17,7 @@ export function TestDatePicker({
 }) {
     const [startDate, setStartDate] = useState(new Date());
     return (
-        <Modal visible={true} className={styles.testModal}>
+        <Modal visible={visible} className={styles.testModal}>
             <DatePicker
                 selected={startDate}
                 onChange={(date) => setStartDate(date)}

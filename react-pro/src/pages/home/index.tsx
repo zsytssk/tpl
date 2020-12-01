@@ -19,7 +19,6 @@ export default function Home() {
     const dispatch = useDispatch();
     const langMap = useLangMap();
 
-    console.log(`test:>`, name);
     return (
         <div className={classes2.div}>
             <button

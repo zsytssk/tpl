@@ -18,7 +18,7 @@ export function TestForm({
     };
 
     return (
-        <Modal visible={true} className={styles.testModal}>
+        <Modal visible={visible} className={styles.testModal}>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <input
                     type="text"

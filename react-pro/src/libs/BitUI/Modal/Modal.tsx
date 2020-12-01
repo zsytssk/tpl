@@ -20,14 +20,6 @@ export function Modal(props: ModalProps) {
     }
 
     useEffect(() => {
-        return () => {
-            if (wrap.contains(modal)) {
-                wrap.removeChild(modal);
-            }
-        };
-    }, []);
-
-    useEffect(() => {
         if (!visible) {
             return;
         }
