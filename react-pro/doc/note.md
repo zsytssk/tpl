@@ -1,6 +1,23 @@
 ## 2020-11-26 15:21:40
 
+-   px to rem
+
+    -   自己写一个 plugin
+    -   margin: 10px 20px 这个有没有用
+        -   。。。
+
+-   @ques jss 插件 运行性能消耗
+    -   能不能直接用 webpack 转化...
+
+### end
+
+-   @material-ui/styles px to rem
+
+    -   https://github.com/cssinjs/jss/blob/master/docs/jss-plugin-default-unit.md
+    -   https://material-ui.com/zh/customization/spacing/
+
 -   @ques theme
+
     -   用 context 包一下 就可以了
 
 ## 2020-11-25 09:36:08
@@ -8,16 +25,13 @@
 -   @test preFix 有没有用
 
     -   什么属性需要 autoPrefix
+    -   也许自带的已经可以了
 
 -   @todo jss
 
     -   @todo theme
     -   plugin:> https://cssinjs.org/plugins/?v=v10.5.0
         -   https://github.com/cssinjs/jss/tree/master/docs
-
--   @material-ui/styles px to rem
-    -   https://github.com/cssinjs/jss/blob/master/docs/jss-plugin-default-unit.md
-    -   https://material-ui.com/zh/customization/spacing/
 
 autoprefix:> jss-plugin-vendor-prefixer | inline-style-prefixer
 
