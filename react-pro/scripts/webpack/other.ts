@@ -1,5 +1,12 @@
 import { Configuration } from 'webpack';
 import { paths } from './paths';
+import * as child_process from 'child_process';
+
+export function git(command: string) {
+    return child_process
+        .execSync(`git ${command}`, { encoding: 'utf8' })
+        .trim();
+}
 
 export const resolve = {
     extensions: ['.js', '.jsx', '.ts', '.tsx'],

@@ -11,6 +11,9 @@ import Loading from './pages/loading';
 import { ThemeProvider } from './pages/shared/theme';
 import { JSSPluginProvider } from './pages/shared/jssPlugin';
 
+(window as any).GIT_VERSION = process.env.GIT_VERSION;
+(window as any).GIT_AUTHOR_DATE = process.env.GIT_AUTHOR_DATE;
+
 ReactDOM.render(
     <Provider store={configureStore()}>
         <React.StrictMode>
