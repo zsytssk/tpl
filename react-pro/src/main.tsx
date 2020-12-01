@@ -9,15 +9,18 @@ import configureStore from '@app/redux/store';
 import { routes } from '@app/routes/app.routes';
 import Loading from './pages/loading';
 import { ThemeProvider } from './pages/shared/theme';
+import { JSSPluginProvider } from './pages/shared/jssPlugin';
 
 ReactDOM.render(
     <Provider store={configureStore()}>
         <React.StrictMode>
             <React.Suspense fallback={<Loading />}>
                 <BrowserRouter>
+                    {/* <JSSPluginProvider> */}
                     <ThemeProvider>
                         <Switch>{renderRoutes(routes)}</Switch>
                     </ThemeProvider>
+                    {/* </JSSPluginProvider> */}
                 </BrowserRouter>
             </React.Suspense>
         </React.StrictMode>

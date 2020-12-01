@@ -11,7 +11,7 @@ import { Theme } from '../shared/theme';
 
 export default function Home() {
     const { name, setTheme } = useTheme<Theme>();
-    const classes1 = useStyles1();
+    const classes1 = useStyles1({ theme: name });
     const classes2 = useStyles2({ classes: classes1 });
     const [visible, setVisible] = useState(false);
     const [datePickerVisible, setDatePickerVisible] = useState(false);
