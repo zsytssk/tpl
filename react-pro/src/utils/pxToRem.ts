@@ -27,6 +27,7 @@ function iterate(prop: string, value, options: Options) {
 
     return value;
 }
+
 /**
  * Replace all css rules with rem and em to be px
  * Intended to be used when you have no control over the document

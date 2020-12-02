@@ -2,7 +2,6 @@ import React, { createContext, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import i18n from '@app/i18n';
 import { RootState } from '@app/redux/store';
-import { TypeLanguageName } from '@app/constants/i18n';
 import template from '@app/utils/template';
 
 export const LocaleMap = {
