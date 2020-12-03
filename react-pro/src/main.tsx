@@ -1,4 +1,4 @@
-import React from 'react';
+import { StrictMode, Suspense } from 'react';
 
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Switch } from 'react-router-dom';
@@ -12,8 +12,8 @@ import { ThemeProvider } from './pages/shared/theme';
 
 ReactDOM.render(
     <Provider store={configureStore()}>
-        <React.StrictMode>
-            <React.Suspense fallback={<Loading />}>
+        <StrictMode>
+            <Suspense fallback={<Loading />}>
                 <BrowserRouter>
                     {/* <JSSPluginProvider> */}
                     <ThemeProvider>
@@ -21,8 +21,8 @@ ReactDOM.render(
                     </ThemeProvider>
                     {/* </JSSPluginProvider> */}
                 </BrowserRouter>
-            </React.Suspense>
-        </React.StrictMode>
+            </Suspense>
+        </StrictMode>
     </Provider>,
     document.getElementById('root'),
 );
