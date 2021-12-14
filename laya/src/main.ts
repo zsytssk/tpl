@@ -12,9 +12,7 @@ async function main() {
         basePath: './',
     });
 
-    const hall = (await runScene('scene/hall.scene', Loading)) as Scene;
-    hall.open();
-    console.log(hall);
+    const [progressPipe, loadPromise] = runScene('scene/hall.scene');
 }
 
 main();

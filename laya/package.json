@@ -29,8 +29,8 @@
         "@webpack-cli/serve": "^1.6.0",
         "babel-loader": "^8.2.3",
         "babel-runtime": "^6.26.0",
-        "copy-webpack-plugin": "^6.2.1",
         "clean-webpack-plugin": "^4.0.0",
+        "copy-webpack-plugin": "^6.2.1",
         "cross-env": "^7.0.3",
         "eslint": "^8.3.0",
         "html-webpack-plugin": "^5.5.0",
@@ -45,7 +45,7 @@
         "webpack-glsl-loader": "^1.0.1"
     },
     "dependencies": {
-
+        "rxjs": "^7.4.0"
     },
     "repository": {
         "type": "git",

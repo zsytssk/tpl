@@ -1,3 +1,6 @@
+import { Observable, Subscriber } from 'rxjs';
+
+import { loader } from 'Laya';
 import { Scene } from 'laya/display/Scene';
 import { Handler } from 'laya/utils/Handler';
 
@@ -13,31 +16,73 @@ export type LoadingCtor = Ctor<LoadingView> & {
     isLoadingView: boolean;
 };
 
-export async function runScene(
-    url: string,
-    progress?: (radio: number) => void,
-) {
-    return new Promise((resolve) => {
-        Scene.load(
-            url,
-            Handler.create(
-                this,
-                (scene) => {
-                    resolve(scene);
-                },
-                null,
-                true,
-            ),
-            Handler.create(
-                this,
-                (radio) => {
-                    progress?.(radio);
-                },
-                null,
-                false,
-            ),
-        );
+type LoadingProgress = [Observable<number>, Promise<any>];
+export function runScene(url: string): [Observable<number>, Promise<Scene>] {
+    let resolve: (value: Scene | PromiseLike<Scene>) => void;
+    let subscriber: Subscriber<number>;
+    const promise = new Promise<Scene>((_resolve) => {
+        resolve = _resolve;
     });
+
+    const observer = new Observable((_subscriber: Subscriber<number>) => {
+        subscriber = _subscriber;
+    });
+
+    Scene.load(
+        url,
+        Handler.create(
+            this,
+            (scene) => {
+                resolve(scene);
+                subscriber.complete();
+            },
+            null,
+            true,
+        ),
+        Handler.create(
+            this,
+            (radio) => {
+                subscriber.next(radio);
+            },
+            null,
+            false,
+        ),
+    );
+
+    return [observer, promise];
 }
 
-export function mergeLoadingTask(loadingProcess: any[]) {}
+export function loadRes(res: any[]): [Observable<number>, Promise<void>] {
+    let resolve: () => void;
+    let subscriber: Subscriber<number>;
+    const promise = new Promise<void>((_resolve) => {
+        resolve = _resolve;
+    });
+
+    const observer = new Observable((_subscriber: Subscriber<number>) => {
+        subscriber = _subscriber;
+    });
+
+    loader.load(
+        res,
+        new Handler(
+            null,
+            () => {
+                subscriber.complete();
+                resolve();
+            },
+            null,
+            false,
+        ),
+        new Handler(this, (val) => {
+            subscriber.next(val);
+        }),
+    );
+
+    return [observer, promise];
+}
+
+export function mergeLoadingTask(loadingProcess: LoadingProgress[]) {
+    const observerArr = [];
+    const promiseArr = [];
+}
