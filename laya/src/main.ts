@@ -1,17 +1,20 @@
-import { Laya } from "@laya/Laya";
-import { Label } from "@laya/ui/Label";
+import { Scene } from 'laya/display/Scene';
 
-function main() {
-  Laya.init(1334, 750);
+import GameConfig from './GameConfig';
+import { init } from './testUtil/init';
+import { runScene } from './testUtil/runScene';
+import Loading from './view/loading';
 
-  const label = new Label("hello world");
-  label.color = "#fff";
-  label.width = 200;
-  label.height = 200;
-  label.fontSize = 100;
-  label.align = "center";
-  label.valign = "middle";
-  Laya.stage.addChild(label);
+async function main() {
+    const version = Date.now() + '';
+    await init(GameConfig, {
+        defaultVersion: version,
+        basePath: './',
+    });
+
+    const hall = (await runScene('scene/hall.scene', Loading)) as Scene;
+    hall.open();
+    console.log(hall);
 }
 
 main();

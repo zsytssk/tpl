@@ -1,24 +1,28 @@
 {
-  "compilerOptions": {
-    "allowJs": true,
-    "experimentalDecorators": true,
-    "module": "esnext",
-    "resolveJsonModule": true,
-    "target": "es6",
-    "skipDefaultLibCheck": true,
-    "skipLibCheck": true,
-    "sourceMap": true,
-    "watch": true,
-    "moduleResolution": "node",
-    "esModuleInterop": true,
-    "noEmit": true,
-    "baseUrl": "./",
-    "paths": {
-      "@app/*": ["src/*"],
-      "@test/*": ["test/*"],
-      "@laya/*": ["libs/*"],
-      "@library/*": ["library/*"]
-    }
-  },
-  "include": ["./libs", "./library", "./src", "./test"]
+    "compilerOptions": {
+        "allowJs": true,
+        "experimentalDecorators": true,
+        "module": "esnext",
+        "resolveJsonModule": true,
+        "target": "es6",
+        "skipDefaultLibCheck": true,
+        "skipLibCheck": true,
+        "sourceMap": true,
+        "watch": true,
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "baseUrl": "./",
+        "noEmit": true,
+        "paths": {
+            "*": ["node_modules/*", "libs/*", "library/*"],
+            "@app/*": ["src/*"]
+        }
+    },
+    "include": [
+        "./libs",
+        "./library",
+        "./src",
+        "./test",
+        "./public/bitgame/paladin.d.ts"
+    ]
 }
