@@ -6,7 +6,9 @@ import {
     loadRes,
     loadScene,
     mergeLoadingTask,
+    testLoad,
 } from './testUtil/runScene';
+import Loading from './view/loading';
 
 async function main() {
     const version = Date.now() + '';
@@ -16,17 +18,15 @@ async function main() {
         basePath: './',
     });
 
-    const [, hall] = await mergeLoadingTask(
+    const [hall] = await mergeLoadingTask(
         [
-            convertToObserver(loadRes)(res),
             convertToObserver(loadScene)('scene/hall.scene'),
+            convertToObserver(loadRes)(res),
+            convertToObserver(testLoad)(10),
         ],
-        (radio) => {
-            console.log(radio);
-        },
+        Loading,
     );
 
-    console.log(`test:>`, hall);
     hall.open();
 }
 

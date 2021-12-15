@@ -7,6 +7,7 @@ import { Dialog } from 'laya/ui/Dialog';
 import { Handler } from 'laya/utils/Handler';
 
 type Ctor<T> = new (...args) => T;
+
 export interface LoadingView {
     onShow: () => void;
     onHide: () => void;
@@ -14,7 +15,6 @@ export interface LoadingView {
 }
 export type LoadingCtor = Ctor<LoadingView> & {
     load: () => Promise<LoadingView>;
-    instance: LoadingView;
     isLoadingView: boolean;
 };
 
@@ -57,29 +57,50 @@ export function loadRes(
     });
 }
 
+export function testLoad(time: number, fn?: ProgressFn) {
+    return new Promise<void>((resolve) => {
+        let space = 0;
+
+        const interval = setInterval(() => {
+            space += 0.5;
+            if (space > time) {
+                clearInterval(interval);
+                resolve();
+                return;
+            }
+            fn(space / time);
+        }, 500);
+    });
+}
+
 type LoadingProgress = [Observable<number>, Promise<unknown>];
 export function convertToObserver(fn: LoadFn) {
     return function (
         res: Parameters<typeof fn>[0],
     ): [Observable<number>, Promise<unknown>] {
         let subscriber: Subscriber<number>;
+        let resolve: (value: unknown) => void;
+        const promise = new Promise((_resolve) => {
+            resolve = _resolve;
+        });
         const observer = new Observable((_subscriber: Subscriber<number>) => {
             subscriber = _subscriber;
-        });
-        const promise = fn(res, (radio: number) => {
-            subscriber?.next(radio);
-        });
-        promise.then(() => {
-            subscriber?.complete();
+            fn(res, (radio: number) => {
+                subscriber?.next(radio);
+            }).then((data) => {
+                subscriber?.next(1);
+                subscriber?.complete();
+                resolve(data);
+            });
         });
 
         return [observer, promise];
     };
 }
 
-export function mergeLoadingTask(
+export async function mergeLoadingTask(
     loadingProcess: LoadingProgress[],
-    progress?: ProgressFn,
+    progress?: ProgressFn | LoadingCtor,
 ) {
     const observerArr: Observable<number>[] = [];
     const promiseArr = [];
@@ -89,10 +110,20 @@ export function mergeLoadingTask(
         promiseArr.push(completePromise);
     }
     const mergeProgress = from(observerArr).pipe(concatAll());
-
-    if (progress) {
+    const allLoadCompleted = Promise.all(promiseArr);
+    if ((progress as LoadingCtor)?.isLoadingView) {
+        const loadingCtor = progress as LoadingCtor;
+        const instance = await loadingCtor.load();
+        instance.onShow();
+        mergeProgress.subscribe((radio) => instance.onProgress(radio));
+        allLoadCompleted.then(() => {
+            instance.onHide();
+        });
+    } else if (typeof progress === 'function') {
         mergeProgress.subscribe(progress);
+    } else {
+        mergeProgress.subscribe();
     }
 
-    return Promise.all(promiseArr);
+    return allLoadCompleted;
 }

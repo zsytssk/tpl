@@ -1,13 +1,17 @@
-import { LoadingView, loadDialog } from '@app/testUtil/runScene';
+import { loadDialog } from '@app/testUtil/runScene';
 import { ui } from '@app/ui/layaMaxUI';
 
-export default class Loading extends ui.scene.loadingUI implements LoadingView {
+export default class Loading extends ui.scene.loadingUI {
     public static instance: Loading;
     public static isLoadingView = true;
     public static url = 'scene/loading.scene';
-    public static async loading() {
-        Loading.instance = (await loadDialog(Loading.url)) as Loading;
+    public static async load() {
+        if (Loading.instance) {
+            return Loading.instance;
+        }
+        return (Loading.instance = (await loadDialog(Loading.url)) as Loading);
     }
+
     constructor() {
         super();
         this.popupEffect = undefined;
@@ -23,6 +27,7 @@ export default class Loading extends ui.scene.loadingUI implements LoadingView {
     }
 
     public onProgress(val: number) {
-        this.progress.text = val + '';
+        console.log(`test:>`, val);
+        this.progress.text = Math.floor(val * 100) + '%';
     }
 }
