@@ -27,7 +27,6 @@ export default class Loading extends ui.scene.loadingUI {
     }
 
     public onProgress(val: number) {
-        console.log(`test:>`, val);
         this.progress.text = Math.floor(val * 100) + '%';
     }
 }

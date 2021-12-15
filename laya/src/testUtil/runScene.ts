@@ -1,5 +1,5 @@
-import { Observable, Subscriber, from } from 'rxjs';
-import { concatAll } from 'rxjs/operators';
+import { Observable, Subscriber, combineLatest } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { loader } from 'Laya';
 import { Scene } from 'laya/display/Scene';
@@ -109,7 +109,10 @@ export async function mergeLoadingTask(
         observerArr.push(progressPipe);
         promiseArr.push(completePromise);
     }
-    const mergeProgress = from(observerArr).pipe(concatAll());
+    const count = observerArr.length;
+    const mergeProgress = combineLatest(observerArr).pipe(
+        map((arr) => arr.reduce((prev, cur) => prev + cur / count, 0)),
+    );
     const allLoadCompleted = Promise.all(promiseArr);
     if ((progress as LoadingCtor)?.isLoadingView) {
         const loadingCtor = progress as LoadingCtor;
