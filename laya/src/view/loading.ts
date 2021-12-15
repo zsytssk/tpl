@@ -1,4 +1,4 @@
-import { LoadingView, openDialog } from '@app/testUtil/runScene';
+import { LoadingView, loadDialog } from '@app/testUtil/runScene';
 import { ui } from '@app/ui/layaMaxUI';
 
 export default class Loading extends ui.scene.loadingUI implements LoadingView {
@@ -6,7 +6,7 @@ export default class Loading extends ui.scene.loadingUI implements LoadingView {
     public static isLoadingView = true;
     public static url = 'scene/loading.scene';
     public static async loading() {
-        Loading.instance = (await openDialog(Loading.url)) as Loading;
+        Loading.instance = (await loadDialog(Loading.url)) as Loading;
     }
     constructor() {
         super();

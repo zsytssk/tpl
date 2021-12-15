@@ -1,3 +1,6 @@
+-   @todo 如何测试
+-   https://www.learnrxjs.io/learn-rxjs/recipes/progressbar
+
 ## 2021-02-23 18:07:34
 
 -   @todo https://stackblitz.com/edit/react-global-state1
@@ -7,8 +10,6 @@
     -   days
     -   months
     -   year
-
--   https://www.learnrxjs.io/learn-rxjs/recipes/progressbar
 
 ## 2020-11-26 15:21:40
 
