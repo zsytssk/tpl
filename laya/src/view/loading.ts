@@ -1,4 +1,5 @@
-import { loadDialog } from '@app/testUtil/runScene';
+import honor from 'honor';
+
 import { ui } from '@app/ui/layaMaxUI';
 
 export default class Loading extends ui.scene.loadingUI {
@@ -9,7 +10,9 @@ export default class Loading extends ui.scene.loadingUI {
         if (Loading.instance) {
             return Loading.instance;
         }
-        return (Loading.instance = (await loadDialog(Loading.url)) as Loading);
+        return (Loading.instance = (await honor.director.openDialog(
+            Loading.url,
+        )) as Loading);
     }
 
     constructor() {

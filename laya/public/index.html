@@ -79,48 +79,6 @@
     </head>
 
     <body>
-        <% if (webpackConfig.mode === "development") { %>
-        <script type="text/javascript">
-            var version = '<%= Date.now() %>';
-            function loadLib(url) {
-                var script = document.createElement('script');
-                script.async = false;
-                script.src = url;
-                document.body.appendChild(script);
-            }
-
-            if (location.href.indexOf('localhost') !== -1) {
-                var localFiles = [
-                    'js/bundle.js?v=<%= Date.now() %>',
-                    'js/laya.js?v=<%= Date.now() %>',
-                    'js/libs.js?v=<%= Date.now() %>',
-                ];
-
-                for (const file of localFiles) {
-                    loadLib(file);
-                }
-            }
-
-            // prettier-ignore
-            var interval = setInterval(function () {
-                if (window.Laya) {
-                    clearInterval(interval);
-                    ['mousewheel', 'DOMMouseScroll'].forEach(function (event) {
-                        Laya.Browser.container.addEventListener(
-                            event,
-                            function (e) {
-                                e.preventDefault();
-                            }
-                        );
-                    });
-                }
-            }, 1000);
-
-        </script>
-        <% } %>
-
-        <!-- production -->
-        <% if (webpackConfig.mode === "production") { %>
         <script type="text/javascript">
             var version = '<%= Date.now() %>';
             function loadLib(url) {
@@ -144,10 +102,22 @@
                     });
                 }
             }, 1000);
-
 
             window.screenOrientation = 'sensor_landscape';
+        </script>
 
+        <!-- production -->
+        <% if (webpackConfig.mode === "development") { %>
+        <script type="text/javascript">
+            var localFiles = [
+                'js/bundle.js?v=<%= Date.now() %>',
+                'js/laya.js?v=<%= Date.now() %>',
+                'js/libs.js?v=<%= Date.now() %>',
+            ];
+
+            for (const file of localFiles) {
+                loadLib(file);
+            }
         </script>
 
         <% } %>

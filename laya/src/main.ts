@@ -1,33 +1,34 @@
-import GameConfig from './GameConfig';
-import { res } from './res';
-import { init } from './testUtil/init';
+import honor from 'honor';
 import {
-    convertToObserver,
+    fakeLoad,
     loadRes,
     loadScene,
-    mergeLoadingTask,
-    testLoad,
-} from './testUtil/runScene';
+    mergeProgressObserver,
+    toProgressObserver,
+} from 'honor/utils/loadRes';
+
+import GameConfig from './GameConfig';
+import { res } from './res';
 import Loading from './view/loading';
 
 async function main() {
     const version = Date.now() + '';
 
-    await init(GameConfig, {
+    await honor.run(GameConfig, {
         defaultVersion: version,
         basePath: './',
     });
 
-    const [hall] = await mergeLoadingTask(
+    const [hall] = await mergeProgressObserver(
         [
-            convertToObserver(loadScene)('scene/hall.scene'),
-            convertToObserver(loadRes)(res),
-            convertToObserver(testLoad)(10),
+            toProgressObserver(loadScene)('scene/hall.scene'),
+            toProgressObserver(loadRes)(res),
+            toProgressObserver(fakeLoad)(10),
         ],
         Loading,
     );
 
-    hall.open();
+    (hall as any).open();
 }
 
 main();
