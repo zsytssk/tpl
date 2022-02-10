@@ -3,6 +3,8 @@ import { map, startWith } from 'rxjs/operators';
 
 import { loader } from 'Laya';
 import { Scene } from 'laya/display/Scene';
+import { Event } from 'laya/events/Event';
+import { HttpRequest } from 'laya/net/HttpRequest';
 import { Dialog } from 'laya/ui/Dialog';
 import { Handler } from 'laya/utils/Handler';
 
@@ -53,6 +55,15 @@ export function loadRes(
             new Handler(null, resolve, null, false),
             new Handler(this, fn),
         );
+    });
+}
+
+export function httpLoad(url, type) {
+    return new Promise((resolve, reject) => {
+        const http = new HttpRequest();
+        http.on(Event.COMPLETE, null, resolve);
+        http.on(Event.ERROR, null, reject);
+        http.send(url, null, 'get', type);
     });
 }
 
