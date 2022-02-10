@@ -1,5 +1,5 @@
 -   npm install
 
--   npm run webpack-test-server
+-   npm start
 
--   http://localhost:8081/?localTest=1
+-   http://localhost:5011
