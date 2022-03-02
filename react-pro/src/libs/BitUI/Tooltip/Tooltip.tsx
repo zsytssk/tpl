@@ -1,152 +1,153 @@
-import { useEffect, useState, useRef, useMemo } from 'react';
+import classnames from "classnames";
+import { useEffect, useState, useRef } from "react";
+import React from "react";
+import ReactDOM from "react-dom";
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-import classnames from 'classnames';
+import { useClickInside, useClickOutside } from "../hooks";
+import { getPlacementPos, Placement } from "../utils";
 
-import './Tooltip.less';
-import { useClickInside, useClickOutside } from '@app/utils/hooks';
+import "./Tooltip.module.less";
 
 type TooltipProps = {
-    trigger?: 'click';
-    children: React.ReactElement<any>;
-    className?: string;
+  trigger?: "click";
+  children: React.FunctionComponentElement<any>;
+  className?: string;
 } & TooltipConProps;
 
 let wrap: HTMLDivElement;
 export function Tooltip(props: TooltipProps) {
-    const { children, trigger, visible: prop_visible, ...otherProps } = props;
-    const ref = useRef<HTMLElement>();
-    const [visible, setVisible] = useState(false);
+  const { children, trigger, visible: propVisible, ...otherProps } = props;
+  const newRef = useRef<HTMLDivElement>(null);
+  const ref =
+    (children?.ref as React.MutableRefObject<HTMLDivElement>) || newRef;
+  const tipRef = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
 
-    if (!wrap) {
-        wrap = document.createElement('div');
-        document.body.appendChild(wrap);
+  if (!wrap) {
+    const findWrap = document.querySelector(
+      ".bit-tooltip-wrap"
+    ) as HTMLDivElement;
+    if (findWrap) {
+      wrap = findWrap;
+    } else {
+      wrap = document.createElement("div");
+      wrap.classList.add("bit-tooltip-wrap");
+      document.body.appendChild(wrap);
     }
+  }
 
-    const child = React.cloneElement(children, { ref });
+  const child = React.cloneElement(children, { ref });
 
-    useEffect(() => {
-        if (prop_visible === undefined) {
-            return;
-        }
-        setVisible(prop_visible);
-    }, [prop_visible]);
+  useEffect(() => {
+    if (propVisible === undefined) {
+      return;
+    }
+    setVisible(propVisible);
+  }, [propVisible]);
 
-    useClickInside(
-        ref,
-        (e: any) => {
-            if (typeof prop_visible === 'boolean') {
-                return;
-            }
-            setVisible(!visible);
-        },
-        true,
-    );
+  useClickInside(
+    ref,
+    (e: any) => {
+      if (typeof propVisible === "boolean") {
+        return;
+      }
+      setVisible(!visible);
+    },
+    true
+  );
 
-    useClickOutside(ref, (e: any) => {
-        if (typeof prop_visible === 'boolean') {
-            return;
-        }
-        setVisible(false);
-    });
+  useClickOutside(ref, (e: any) => {
+    if (typeof propVisible === "boolean") {
+      return;
+    }
+    if (tipRef.current?.contains(e.target)) {
+      return;
+    }
+    setVisible(false);
+  });
 
-    return (
-        <>
-            {ReactDOM.createPortal(
-                <TooltipCon visible={visible} {...otherProps} domRef={ref} />,
-                wrap,
-            )}
-            {child}
-        </>
-    );
+  return (
+    <>
+      {ReactDOM.createPortal(
+        <TooltipCon
+          visible={visible}
+          {...otherProps}
+          domRef={ref}
+          tipRef={tipRef}
+        />,
+        wrap
+      )}
+      {child}
+    </>
+  );
 }
 
-type TooltipConProps = {
-    title: string;
-    visible?: boolean;
-    position?: 'bottom' | 'left' | 'right' | 'top';
-    className?: string;
+export type TooltipConProps = {
+  title: React.ReactNode | string;
+  visible?: boolean;
+  position?: Placement;
+  className?: string;
+  tipRef?: React.MutableRefObject<HTMLDivElement | null>;
 };
 type Style = {
-    left: number;
-    top: number;
+  left: number;
+  top: number;
 };
-function TooltipCon(
-    props: TooltipConProps & {
-        domRef: React.MutableRefObject<HTMLElement | undefined>;
-    },
-) {
-    const { title, domRef, visible, className } = props;
-    let { position } = props;
-    const [style, setStyle] = useState({} as Style);
-    const tipRef = useRef<HTMLDivElement>(null);
+function TooltipCon({
+  title,
+  domRef,
+  visible,
+  className,
+  position = "top",
+  tipRef,
+}: TooltipConProps & { domRef: React.MutableRefObject<HTMLElement> }) {
+  const [style, setStyle] = useState({} as Style);
 
-    position = position || 'top';
+  position = position || "top";
 
-    useEffect(() => {
-        const arrow_size = 8;
-        const dom = domRef.current;
-        const localDom = tipRef.current;
-        if (!dom || !localDom) {
-            return;
-        }
-        const bounds = dom.getBoundingClientRect();
-        const localBounds = localDom.getBoundingClientRect();
-        const { scrollTop, scrollLeft } = document.documentElement;
+  useEffect(() => {
+    const fn = () => {
+      const dom = domRef.current;
+      const localDom = tipRef?.current;
+      if (!dom || !localDom) {
+        return;
+      }
+      const pos = getPlacementPos(position, dom, localDom, 10);
 
-        let left = 0;
-        let top = 0;
-        if (position === 'right') {
-            left = scrollLeft + bounds.left + bounds.width + arrow_size;
-            top =
-                scrollTop +
-                bounds.top +
-                bounds.height / 2 -
-                localBounds.height / 2;
-        } else if (position === 'top') {
-            left =
-                scrollLeft +
-                bounds.left +
-                (bounds.width - localBounds.width) / 2;
-            top = scrollTop + bounds.top - localBounds.height - arrow_size;
-        } else if (position === 'left') {
-            left = scrollLeft + bounds.left - localBounds.width - arrow_size;
-            top =
-                scrollTop +
-                bounds.top +
-                bounds.height / 2 -
-                localBounds.height / 2;
-        } else if (position === 'bottom') {
-            left =
-                scrollLeft +
-                bounds.left +
-                (bounds.width - localBounds.width) / 2;
-            top = scrollTop + bounds.top + bounds.height + arrow_size;
-        }
+      setStyle({
+        ...pos,
+      });
+    };
 
-        setStyle({
-            left,
-            top,
-        });
-    }, [visible, position]);
+    fn();
 
-    if (!visible) {
-        return null;
+    if (window.MutationObserver && tipRef?.current) {
+      const config = { attributes: true, childList: true, subtree: true };
+      const observer = new MutationObserver(fn);
+
+      observer.observe(tipRef.current, config);
+      return () => {
+        observer.disconnect();
+      };
     }
+  }, [visible, position, domRef, tipRef]);
 
-    return (
-        <div
-            className={classnames('bit-tooltip', position, className)}
-            ref={tipRef}
-            style={{ ...style }}
-        >
-            <div className="bit-tooltip-content">
-                <div className="bit-tooltip-arrow"></div>
-                <div className="bit-tooltip-inner">
-                    <span>{title}</span>
-                </div>
-            </div>
+  if (!visible) {
+    return null;
+  }
+
+  return (
+    <div
+      className={classnames("bit-tooltip", position, className)}
+      ref={tipRef}
+      style={{ ...style }}
+    >
+      <div className="bit-tooltip-content">
+        <div className="bit-tooltip-arrow"></div>
+        <div className="bit-tooltip-inner">
+          <span>{title}</span>
         </div>
-    );
+      </div>
+    </div>
+  );
 }

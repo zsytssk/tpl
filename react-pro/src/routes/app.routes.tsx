@@ -1,15 +1,15 @@
-import { getLang } from '@app/utils/i18nUtils';
 import React from 'react';
 import { RouteConfig } from 'react-router-config';
 import { Redirect } from 'react-router-dom';
+
+import { getLang } from '@app/utils/i18nUtils';
 
 const { search, hash } = window.location;
 export const routes: RouteConfig[] = [
     {
         path: '/',
         exact: true,
-        // eslint-disable-next-line
-        render: () => {
+        render: function ComRedirect() {
             return <Redirect to={`${getLang()}${search}${hash}`} />;
         },
     },

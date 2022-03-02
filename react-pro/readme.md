@@ -10,3 +10,4 @@
 1. redux 7
 1. redux-actions
 1. less
+1. i18n

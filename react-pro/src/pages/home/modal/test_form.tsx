@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Modal } from '@app/libs/BitUI/Modal/Modal';
 import { useForm } from 'react-hook-form';
-import styles from './test_form.less';
+
+import Modal from '@app/libs/bitUi/Modal';
 import { log } from '@app/utils/logger';
+
+import styles from './test_form.less';
 
 export function TestForm({
     visible,

@@ -1,7 +1,7 @@
-import { createStore, applyMiddleware, compose } from 'redux';
-import rootReducer from './reducers';
+import { compose, createStore } from 'redux';
 
 import type { AppState } from './modules/app';
+import rootReducer from './reducers';
 
 export type RootState = {
     app: AppState;

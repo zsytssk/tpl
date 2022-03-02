@@ -1,72 +1,88 @@
-import React, { useState, useEffect, useRef } from 'react';
-import SVG from 'react-inlinesvg';
-import { Empty } from '@app/containers/Match/components/Empty/Empty';
-import { useSelector } from 'react-redux';
-import i18n from '@app/i18n';
 import classNames from 'classnames';
-import { isEmpty } from '@app/utils/utils';
+import { useEffect, useRef } from 'react';
 
-export * from './LiteListView';
+import { isEmpty } from './utils';
 
 export type Props = {
-    dataSource: any[];
-    onEndReached: () => void;
-    onEndReachedThreshold?: number;
-    itemRender: (item: any, index: number) => JSX.Element;
-    loading: boolean;
-    end: boolean;
-    footerRender?: () => JSX.Element | null;
+  className?: string;
+  dataSource: any[];
+  onEndReached: () => void;
+  onEndReachedThreshold?: number;
+  itemRender: (item: any, index: number) => JSX.Element;
+  loading: boolean;
+  end: boolean;
+  scrollRef?: React.MutableRefObject<HTMLDivElement | undefined>;
+  disableEndReached?: boolean;
+  footerRender?: () => JSX.Element | null;
+  emptyRender?: () => JSX.Element | null;
 };
-export function ListView(props: Props) {
-    const {
-        itemRender,
-        footerRender,
-        dataSource,
-        onEndReached,
-        loading,
-        end,
-    } = props;
-    let { onEndReachedThreshold } = props;
-    const lang = useSelector((state) => (state as any).app.lang);
-    const langInfo = i18n[lang].common;
+export function ListView({
+  onEndReachedThreshold,
+  itemRender,
+  footerRender,
+  dataSource,
+  onEndReached,
+  loading,
+  end,
+  emptyRender,
+  className,
+  scrollRef,
+  disableEndReached = false,
+}: Props) {
+  const timeOutRef = useRef<number>();
+  const onEndReachedRef = useRef<() => void>();
+  onEndReachedThreshold = onEndReachedThreshold === undefined ? 10 : onEndReachedThreshold;
 
-    onEndReachedThreshold =
-        onEndReachedThreshold === undefined ? 10 : onEndReachedThreshold;
-    useEffect(() => {
-        const fn = () => {
-            if (end || loading) {
-                return;
-            }
+  useEffect(() => {
+    onEndReachedRef.current = () => {
+      onEndReached?.();
+    };
+  }, [onEndReached]);
 
-            if (
-                window.innerHeight + window.scrollY >=
-                document.body.offsetHeight - (onEndReachedThreshold as number)
-            ) {
-                onEndReached?.();
-            }
-        };
+  useEffect(() => {
+    if (disableEndReached) {
+      return;
+    }
+    const ele = scrollRef?.current;
+    const fn = () => {
+      if (end || loading) {
+        return;
+      }
+      if (ele) {
+        if (ele.scrollHeight - ele.clientHeight < ele.scrollTop + (onEndReachedThreshold as number)) {
+          onEndReachedRef.current?.();
+        }
+        return;
+      }
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight - (onEndReachedThreshold as number)) {
+        onEndReachedRef.current?.();
+      }
+    };
+    clearTimeout(timeOutRef.current);
+    timeOutRef.current = setTimeout(() => {
+      fn();
+    }, 500) as unknown as number;
 
-        window.addEventListener('scroll', fn);
-        return () => window.removeEventListener('scroll', fn);
-    }, [end, loading]);
+    if (ele) {
+      ele.addEventListener('scroll', fn, { passive: false });
+    } else {
+      window.addEventListener('scroll', fn, { passive: false });
+    }
+    return () => {
+      if (ele) {
+        ele.removeEventListener('scroll', fn);
+      } else {
+        window.removeEventListener('scroll', fn);
+      }
+    };
+  }, [end, loading, disableEndReached, onEndReachedThreshold, scrollRef]);
 
-    return (
-        <>
-            <div
-                className={classNames('bit-list', {
-                    'bit-list-view-empty': isEmpty(dataSource),
-                })}
-            >
-                {!isEmpty(dataSource)
-                    ? dataSource.map((item, index) => itemRender(item, index))
-                    : !loading && (
-                          <Empty
-                              tip={langInfo.noresult}
-                              className="bit-list-empty"
-                          />
-                      )}
-                {footerRender?.()}
-            </div>
-        </>
-    );
+  return (
+    <>
+      <div className={classNames('bit-list', className, { 'bit-list-view-empty': isEmpty(dataSource) })}>
+        {!isEmpty(dataSource) ? dataSource.map((item, index) => itemRender(item, index)) : emptyRender?.()}
+        {footerRender?.()}
+      </div>
+    </>
+  );
 }

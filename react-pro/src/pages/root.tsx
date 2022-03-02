@@ -1,6 +1,3 @@
-import { actions } from '@app/redux/modules/app';
-import { RootState } from '@app/redux/store';
-import { formatLang, setLang } from '@app/utils/i18nUtils';
 import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
@@ -11,6 +8,10 @@ import {
     useLocation,
     useParams,
 } from 'react-router-dom';
+
+import { actions } from '@app/redux/modules/app';
+import { RootState } from '@app/redux/store';
+import { formatLang, setLang } from '@app/utils/i18nUtils';
 
 export default function Root(props: any) {
     const { lang: urlLang } = useParams<any>();
