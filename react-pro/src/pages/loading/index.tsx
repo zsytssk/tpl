@@ -1,5 +1,6 @@
-import { log } from '@app/utils/logger';
 import { useEffect } from 'react';
+
+import { log } from '@app/utils/logger';
 
 export default function Loading() {
     useEffect(() => {
