@@ -45,7 +45,7 @@
         "webpack-glsl-loader": "^1.0.1"
     },
     "dependencies": {
-        "jszip": "^3.7.1",
+        "jszip": "^3.8.0",
         "rxjs": "^7.4.0"
     },
     "repository": {
